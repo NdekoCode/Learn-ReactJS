@@ -1,10 +1,9 @@
 let n = 0;
 function render() {
-  const h1 = React.createElement(
-    "h1",
-    {},
-    "Bonjour tous le monde",
-    React.createElement("span", {}, n)
+  const h1 = (
+    <h1>
+      Bonjour tous le monde <span>{n}</span>
+    </h1>
   );
   ReactDOM.render(h1, document.getElementById("app"));
 }
