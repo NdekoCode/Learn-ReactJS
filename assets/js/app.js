@@ -2,6 +2,12 @@
 // On va créer un titre qui va dire bonjour suivis du nom de la personne et on va utiliser un h1 pour cela
 const namesClient = ["Jean", "Cedric", "Benjamin", "Reactif"];
 
+/**
+ * @description Creation d'un composant en utilisant une simple fonction
+ * @author NdekoCode
+ * @param {ReactProps} { names, children }
+ * @return {JSXElement}
+ */
 function WelcomeFun({ names, children }) {
   console.log(names);
   return (
