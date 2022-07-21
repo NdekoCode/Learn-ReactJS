@@ -35,6 +35,23 @@ class Welcome extends React.Component {
   }
 }
 
+class Increment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.index = 0;
+    this.state = { index: this.index };
+  }
+  componentDidMount() {
+    window.setInterval(this.increment.bind(this), 1000);
+  }
+  increment() {
+    this.setState({ index: this.index++ });
+  }
+  render() {
+    return <button>{this.state.index}</button>;
+  }
+}
+
 function Home() {
   return (
     <div>
@@ -42,6 +59,7 @@ function Home() {
         Bonjour les gars j'espere que vous allez bien
       </Welcome>
       <Clock />
+      <Increment />
     </div>
   );
 }
@@ -53,9 +71,10 @@ class Clock extends React.Component {
     this.state = { date: new Date() };
   }
   componentDidMount() {
-    this.timer = window.setInterval(() => {
-      this.tick();
-    }, 1000);
+    // function nameFunct: this represente l'Objet window
+    // ()=>{} : this represente l'objet sur lequel il s'execute
+    // this.funcName.bind(this) permet de faire en sorte que l'objet courante "this" represente  l'objet sur lequel s'execute funcName et non l'objet window
+    this.timer = window.setInterval(this.tick.bind(this), 1000);
   }
   componentWillUnmount() {
     window.clearInterval(this.timer);
