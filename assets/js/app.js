@@ -36,16 +36,28 @@ class Welcome extends React.Component {
 }
 
 class Increment extends React.Component {
+  // Pour definir les valeurs par defaut des props d'un composant
+  static defaultProps = {
+    start: 0,
+    step: 1,
+  };
   constructor(props) {
     super(props);
-    this.index = 0;
-    this.state = { index: this.index };
+    console.log(props.step);
+    this.timer = null;
+    this.state = { index: props.start };
   }
   componentDidMount() {
-    window.setInterval(this.increment.bind(this), 1000);
+    this.timer = window.setInterval(this.increment.bind(this), 1000);
+  }
+  componentWillUnmount() {
+    window.clearInterval(this.timer);
   }
   increment() {
-    this.setState({ index: this.index++ });
+    // On utile cette methode car notre changement d'etat depend de l'Etat precedent ou d'une proprieter pour ne pas avoir de problème lors d'un groupement d'Etat fait par React avec plusieurs setState qui sont lancer au meme moment, cette methode nous permet d'avoir des composant qui ont des etat individuel, ie on peut avoir plusieurs <Increment/> qui demarre differement
+    this.setState((state, props) => ({
+      index: state.index + props.step,
+    }));
   }
   render() {
     return <button>{this.state.index}</button>;
@@ -59,7 +71,8 @@ function Home() {
         Bonjour les gars j'espere que vous allez bien
       </Welcome>
       <Clock />
-      <Increment />
+      <Increment start={10} step={10} />
+      <Increment start={110} />
     </div>
   );
 }
