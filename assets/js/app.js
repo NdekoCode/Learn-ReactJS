@@ -6,6 +6,8 @@ class ManualIncrement extends React.Component {
   constructor(props) {
     super(props);
     this.state = { index: props.start, timer: null };
+    this.toggle = this.toggle.bind(this);
+    this.begin = this.begin.bind(this);
   }
   componentDidMount() {
     this.play();
@@ -33,16 +35,25 @@ class ManualIncrement extends React.Component {
     window.clearInterval(this.state.timer);
     this.setState({ timer: null });
   }
+  toggle() {
+    return this.state.timer ? this.pause() : this.play();
+  }
+  label() {
+    return this.state.timer ? "Pause" : "Lecture";
+  }
+
+  begin() {
+    this.pause();
+    this.setState((state, props) => ({ index: props.start, timer: null }));
+    this.play();
+  }
 
   render() {
     return (
       <div>
         valeur: <strong>{this.state.index}</strong>
-        {this.state.timer ? (
-          <button onClick={this.pause.bind(this)}>Pause</button>
-        ) : (
-          <button onClick={this.play.bind(this)}>Lecture</button>
-        )}
+        <button onClick={this.toggle}>{this.label()}</button>
+        <button onClick={this.begin}>Reinitialiser</button>
       </div>
     );
   }
