@@ -1,68 +1,46 @@
-class ManualIncrement extends React.Component {
-  static defaultProps = {
-    start: 0,
-    step: 1,
-  };
+class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { index: props.start, timer: null };
-    this.toggle = this.toggle.bind(this);
-    this.begin = this.begin.bind(this);
+    this.state = {
+      nom: "Jean",
+      text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati nostrum cumque fugit sunt repellat, perferendis voluptas, hic quisquam facilis commodi, consequuntur accusantium impedit deserunt quidem magni. Minima vitae dicta aliquam!",
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeText = this.handleChangeText.bind(this);
   }
-  componentDidMount() {
-    this.play();
+  handleChange(e) {
+    this.setState({ nom: e.target.value });
   }
-  componentWillUnMount() {
-    // On ne doit pas appeler un setState dans cet evenement pour eviter d'avoir des problèmes internes avec React
-    window.clearInterval(this.state.timer);
+  handleChangeText(e) {
+    this.setState({ text: e.target.value });
   }
-  /**
-   * @description Va incrementer l'index
-   * @author NdekoCode
-   * @memberof ManualIncrement
-   */
-  increment() {
-    this.setState((state, props) => ({ index: state.index + props.step }));
-  }
-  play() {
-    window.clearInterval(this.state.timer);
-    // On est pas obliger de modifier "index" car il va fusionner l'objet retourner avec l'Etat courant
-    this.setState({
-      timer: window.setInterval(this.increment.bind(this), 1000),
-    });
-  }
-  pause() {
-    window.clearInterval(this.state.timer);
-    this.setState({ timer: null });
-  }
-  toggle() {
-    return this.state.timer ? this.pause() : this.play();
-  }
-  label() {
-    return this.state.timer ? "Pause" : "Lecture";
-  }
-
-  begin() {
-    this.pause();
-    this.setState((state, props) => ({ index: props.start, timer: null }));
-    this.play();
-  }
-
   render() {
     return (
       <div>
-        valeur: <strong>{this.state.index}</strong>
-        <button onClick={this.toggle}>{this.label()}</button>
-        <button onClick={this.begin}>Reinitialiser</button>
+        <div>
+          <label htmlFor="nom">Nom</label>
+          <input
+            type="text"
+            name="nom"
+            id="nom"
+            value={this.state.nom}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="text"></label>
+          <textarea
+            name="text"
+            id="text"
+            cols="30"
+            value={this.state.text}
+            onChange={this.handleChangeText}
+            rows="10"
+          ></textarea>
+        </div>
+        Valeur: {this.state.nom}
       </div>
     );
   }
-}
-function Home() {
-  return (
-    <div>
-      <ManualIncrement />
-    </div>
-  );
 }
 ReactDOM.render(<Home />, document.getElementById("app"));
