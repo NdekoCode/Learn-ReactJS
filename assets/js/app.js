@@ -2,17 +2,27 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nom: "Jean",
-      text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati nostrum cumque fugit sunt repellat, perferendis voluptas, hic quisquam facilis commodi, consequuntur accusantium impedit deserunt quidem magni. Minima vitae dicta aliquam!",
+      nom: "Arick",
+      member: ["Arick", "Abel"],
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit molestiae maiores cupiditate architecto itaque, sed vero asperiores. Fugiat aliquid atque doloribus laboriosam reprehenderit porro earum sequi, quasi animi omnis dolorum!",
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeText = this.handleChangeText.bind(this);
+    this.handleText = this.handleText.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
-  handleChange(e) {
-    this.setState({ nom: e.target.value });
+  handleText({ target }) {
+    this.setState({
+      description: target.value,
+    });
   }
-  handleChangeText(e) {
-    this.setState({ text: e.target.value });
+  handleChange({ target }) {
+    this.setState({ nom: target.value });
+  }
+  handleSelect({ target }) {
+    this.setState({
+      member: Array.from(target.selectedOptions).map((opt) => opt.value),
+    });
   }
   render() {
     return (
@@ -21,24 +31,37 @@ class Home extends React.Component {
           <label htmlFor="nom">Nom</label>
           <input
             type="text"
-            name="nom"
             id="nom"
+            name="nom"
             value={this.state.nom}
             onChange={this.handleChange}
           />
         </div>
         <div>
-          <label htmlFor="text"></label>
+          <label htmlFor="description">Description</label>
           <textarea
-            name="text"
-            id="text"
-            cols="30"
-            value={this.state.text}
-            onChange={this.handleChangeText}
-            rows="10"
+            name="description"
+            id="description"
+            cols="25"
+            rows="5"
+            value={this.state.description}
+            onChange={this.handleText}
           ></textarea>
         </div>
-        Valeur: {this.state.nom}
+        <div>
+          <label htmlFor="member">Membre</label>
+          <select
+            name="member"
+            value={this.state.member}
+            onChange={this.handleSelect}
+            id="member"
+            multiple
+          >
+            <option value="Cedric">Membre 1</option>
+            <option value="Arick">Membre 2</option>
+            <option value="Abel">Membre 3</option>
+          </select>
+        </div>
       </div>
     );
   }
