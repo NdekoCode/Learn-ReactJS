@@ -91,9 +91,26 @@ class Home extends React.Component {
 class Field extends React.Component {
   render() {
     const { type, name, value, onChange, children } = this.props;
+    if (type === "checkbox" || type === "radio") {
+      return (
+        <div className="form-check">
+          <input
+            type={type}
+            name={name}
+            value={value}
+            id={name}
+            onChange={onChange}
+            className="form-check-input"
+          />
+          <label htmlFor={name} className="form-check-label">
+            {children}
+          </label>
+        </div>
+      );
+    }
     return (
       <div className="form-group">
-        <label htmlFor="name">{children}</label>
+        <label htmlFor={name}>{children}</label>
         <input
           type={type}
           name={name}
@@ -120,6 +137,9 @@ class Formular extends React.Component {
   }
   validForm(evt) {
     evt.preventDefault();
+    const data = JSON.stringify(this.state);
+    fetch(url, { method: "POST" });
+    this.setState({ nom: "", prenom: "", email: "", newsletter: false });
   }
   handleChange({ target }) {
     const name = target.name;
@@ -150,20 +170,28 @@ class Formular extends React.Component {
           >
             Prenom
           </Field>
+          <Field
+            type="email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          >
+            Email
+          </Field>
+          <Field
+            type="checkbox"
+            name="newsletter"
+            value={this.state.check}
+            onChange={this.handleChange}
+          >
+            S'abonner à la newsletter
+          </Field>
           <div>
-            <input
-              type="checkbox"
-              name="newsletter"
-              id="newsletter"
-              checked={this.state.check}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="newsletter">S'abonner à la newsletter</label>
+            <button type="submit" className="btn btn-primary">
+              Valider
+            </button>
           </div>
           {JSON.stringify(this.state)}
-          <button type="submit" className="btn btn-primary">
-            Valider
-          </button>
         </div>
       </form>
     );
