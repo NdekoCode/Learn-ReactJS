@@ -88,7 +88,24 @@ class Home extends React.Component {
     );
   }
 }
-
+class Field extends React.Component {
+  render() {
+    const { type, name, value, onChange, children } = this.props;
+    return (
+      <div className="form-group">
+        <label htmlFor="name">{children}</label>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          id={name}
+          onChange={onChange}
+          className="form-control"
+        />
+      </div>
+    );
+  }
+}
 class Formular extends React.Component {
   constructor(props) {
     super(props);
@@ -115,32 +132,24 @@ class Formular extends React.Component {
   render() {
     console.log("Render");
     return (
-      <form action="" onSubmit={this.validForm}>
+      <form action="" onSubmit={this.validForm} className="container mt-5">
         <div>
-          <div>
-            <label htmlFor="nom">Nom</label>
-            <input
-              type="text"
-              name="nom"
-              id="nom"
-              value={this.state.nom}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="prenom">Prenom</label>
-            <input
-              type="text"
-              name="prenom"
-              id="prenom"
-              value={this.state.prenom}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="test">Test</label>
-            <input type="text" name="test" id="" value={undefined} />
-          </div>
+          <Field
+            type="text"
+            name="nom"
+            value={this.state.nom}
+            onChange={this.handleChange}
+          >
+            Nom
+          </Field>
+          <Field
+            type="text"
+            name="prenom"
+            value={this.state.prenom}
+            onChange={this.handleChange}
+          >
+            Prenom
+          </Field>
           <div>
             <input
               type="checkbox"
@@ -152,7 +161,9 @@ class Formular extends React.Component {
             <label htmlFor="newsletter">S'abonner à la newsletter</label>
           </div>
           {JSON.stringify(this.state)}
-          <button type="submit">Valider</button>
+          <button type="submit" className="btn btn-primary">
+            Valider
+          </button>
         </div>
       </form>
     );
