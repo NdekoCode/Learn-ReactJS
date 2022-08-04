@@ -93,9 +93,9 @@ class Formular extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nom: "Bulakali",
-      prenom: "Arick",
-      email: "arickbulakali@gmail.com",
+      nom: "",
+      prenom: "",
+      email: "",
       newsletter: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -105,17 +105,15 @@ class Formular extends React.Component {
     evt.preventDefault();
   }
   handleChange({ target }) {
-    console.log(target.value.length);
-    if (target.value.length < 2) {
-      target.style.borderColor = "1px solid red";
-    } else {
-      target.style.borderColor = "none";
-    }
+    const name = target.name;
+    const type = target.type;
+    const value = type === "checkbox" ? target.checked : target.value;
     this.setState({
-      nom: target.value,
+      [name]: value,
     });
   }
   render() {
+    console.log("Render");
     return (
       <form action="" onSubmit={this.validForm}>
         <div>
@@ -140,6 +138,10 @@ class Formular extends React.Component {
             />
           </div>
           <div>
+            <label htmlFor="test">Test</label>
+            <input type="text" name="test" id="" value={undefined} />
+          </div>
+          <div>
             <input
               type="checkbox"
               name="newsletter"
@@ -149,6 +151,7 @@ class Formular extends React.Component {
             />
             <label htmlFor="newsletter">S'abonner à la newsletter</label>
           </div>
+          {JSON.stringify(this.state)}
           <button type="submit">Valider</button>
         </div>
       </form>
