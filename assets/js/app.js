@@ -88,7 +88,41 @@ class Home extends React.Component {
     );
   }
 }
-
+class Field extends React.Component {
+  render() {
+    const { type, name, value, onChange, children } = this.props;
+    if (type === "checkbox" || type === "radio") {
+      return (
+        <div className="form-check">
+          <input
+            type={type}
+            name={name}
+            value={value}
+            id={name}
+            onChange={onChange}
+            className="form-check-input"
+          />
+          <label htmlFor={name} className="form-check-label">
+            {children}
+          </label>
+        </div>
+      );
+    }
+    return (
+      <div className="form-group">
+        <label htmlFor={name}>{children}</label>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          id={name}
+          onChange={onChange}
+          className="form-control"
+        />
+      </div>
+    );
+  }
+}
 class Formular extends React.Component {
   constructor(props) {
     super(props);
@@ -103,6 +137,9 @@ class Formular extends React.Component {
   }
   validForm(evt) {
     evt.preventDefault();
+    const data = JSON.stringify(this.state);
+    fetch(url, { method: "POST" });
+    this.setState({ nom: "", prenom: "", email: "", newsletter: false });
   }
   handleChange({ target }) {
     const name = target.name;
@@ -115,44 +152,46 @@ class Formular extends React.Component {
   render() {
     console.log("Render");
     return (
-      <form action="" onSubmit={this.validForm}>
+      <form action="" onSubmit={this.validForm} className="container mt-5">
         <div>
+          <Field
+            type="text"
+            name="nom"
+            value={this.state.nom}
+            onChange={this.handleChange}
+          >
+            Nom
+          </Field>
+          <Field
+            type="text"
+            name="prenom"
+            value={this.state.prenom}
+            onChange={this.handleChange}
+          >
+            Prenom
+          </Field>
+          <Field
+            type="email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          >
+            Email
+          </Field>
+          <Field
+            type="checkbox"
+            name="newsletter"
+            value={this.state.check}
+            onChange={this.handleChange}
+          >
+            S'abonner à la newsletter
+          </Field>
           <div>
-            <label htmlFor="nom">Nom</label>
-            <input
-              type="text"
-              name="nom"
-              id="nom"
-              value={this.state.nom}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="prenom">Prenom</label>
-            <input
-              type="text"
-              name="prenom"
-              id="prenom"
-              value={this.state.prenom}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="test">Test</label>
-            <input type="text" name="test" id="" value={undefined} />
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              name="newsletter"
-              id="newsletter"
-              checked={this.state.check}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="newsletter">S'abonner à la newsletter</label>
+            <button type="submit" className="btn btn-primary">
+              Valider
+            </button>
           </div>
           {JSON.stringify(this.state)}
-          <button type="submit">Valider</button>
         </div>
       </form>
     );
