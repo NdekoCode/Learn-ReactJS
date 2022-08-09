@@ -30,6 +30,19 @@ const PRODUCTS = [
     name: "iPhone 5",
   },
   { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" },
+  { category: "Sporting Goods", price: "$299.99", stocked: true, name: "Nexus 9" },
+  {
+    category: "Electronics",
+    price: "$599.99",
+    stocked: false,
+    name: "iPhone X",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$39.99",
+    stocked: true,
+    name: "Jordan",
+  },
 ];
 function Home() {
   return (
@@ -54,24 +67,41 @@ class FilterableProductTable extends React.Component {
      */
     this.state = {
       filterText:"",
-      inStockOnly:false,
-      products: this.props.products
+      inStockOnly:false
     };
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleFilterIsStockOnly = this.handleFilterIsStockOnly.bind(this);
   }
-
-  handleFilterTextChange({target}){
-    this.setState({filterText:target.value});
+/**
+ * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type texte pour filtrer par rapport au mot entrer par l'utilisateur dans ce champs
+ * @author NdekoCode
+ * @param {String} filterTextNewValue L'element à modifier et qui
+ * @memberof FilterableProductTable
+ */
+handleFilterTextChange(filterTextNewValue){
+    this.setState({filterText:filterTextNewValue});
   }
-  handleFilterIsStockOnly({target}) {
-    this.setState({inStockOnly: target.checked});
+  /**
+    * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type checkbox pour filtrer ou pas par rapport aux produit en stock
+   * @author NdekoCode
+   * @param {Boolean} {inStockOnlyNewValue} L'element à modifier
+   * @memberof FilterableProductTable
+   */
+  handleFilterIsStockOnly(inStockOnlyNewValue) {
+    this.setState({inStockOnly: inStockOnlyNewValue});
   }
   render() {
     const { products } = this.props;
     const {filterText, inStockOnly} = this.state;
     return (
       <React.Fragment>
-      <SearchBar filterText={filterText} inStockOnly={inStockOnly}/>
-        <ProductTable products={products} />
+      <SearchBar 
+      filterText={filterText} 
+      inStockOnly={inStockOnly}
+      onFilterTextChange={this.handleFilterTextChange}
+      onFilterIsStockOnlyChange={this.handleFilterIsStockOnly}
+      />
+        <ProductTable products={products} filterText={filterText} inStockOnly={inStockOnly} />
       </React.Fragment>
     );
   }
@@ -89,16 +119,38 @@ class ProductTable extends React.Component {
   }
   render() {
     const rows = [];
+    let categories =[];
+    // Le tableau qui va contenir les produits trier par categorie
+    let newProducts = [];
     let lastCategory = null;
-    const { products } = this.props;
+    const { products,inStockOnly, filterText } = this.props;
+    // On parcours tous les produits pour extraire uniquement les categories
+    products.forEach((product)=>{
+      categories.push(product.category);
+    });
+    // On supprime les doublons dans les categories que l'on a obtenus
+    categories = [...new Set(categories)];
+    // On parcours tous les categories unique
+    categories.forEach(category=>{
+      // Pour chaque categorie on on associe les produits qui leurs correspond
+        newProducts.push(...products.filter(newProduct=>newProduct.category===category));
+    });
+  
     // NB: * la categorie vient avant sa liste des produits
     // => ? Methode à retenir pour triage par category
-    products.forEach((product,index)=>{
-      //D'abord On verifie si notre categorie est nouvelle
+    newProducts.forEach((product,index)=>{
+      // Si on veux avoir uniquement les produit en stock alors sotte tous les indice dont les produit ne sont pas en stock OU si l'element que l'on recherche ne correspond à aucun nom alors saute tous les element dont le nom ne correspond pas à la recherche taper par l'utilisateur, sachez que avec cette methode si l'utilisateur n'a rien rechercher alors tous les produits seront retourner
+      if((inStockOnly && !product.stocked) || product.name.indexOf(filterText)) {
+        return null;
 
+      }
+
+      //D'abord On verifie si notre categorie est nouvelle
+      
       if(product.category !==lastCategory) {
         // si il est nouvelle alors on change la valeur de la derniere categorie
         lastCategory = product.category;
+        categories.push(lastCategory);
         // Puis on ajoute dans la liste des lignes un nouveau element de type category
         rows.push(<ProductCategoryRow key={lastCategory} category={lastCategory}/>)
       }
@@ -151,15 +203,26 @@ function ProductCategoryRow({category}) {
 class SearchBar extends React.Component {
   constructor(props){
     super(props);
+    this.handleFilterText = this.handleFilterText.bind(this);
+    this.handleIsStockOnly = this.handleIsStockOnly.bind(this);
+  }
+  handleFilterText({target}){
+    /** le callback a appeler lorsque les changement on été effectué sur cet element enfant */
+    this.props.onFilterTextChange(target.value);
+  }
+  handleIsStockOnly({target}){
+    /** le callback a appeler lorsque les changement on été effectué sur cet element enfant */
+    this.props.onFilterIsStockOnlyChange(target.checked);
   }
   render(){
+    const {filterText, isStockOnly} = this.props;
     return <div className="mb-3">
       <div className="form-group mb-2">
-        <input type="search" placeholder="Rechercher..." value={undefined} name="search" id="search" className="form-control"/>
+        <input type="search" placeholder="Rechercher..." value={filterText} onChange={this.handleFilterText} name="search" id="search" className="form-control"/>
       </div>
       <div className="form-check">
-        <input type="checkbox" className="form-check-input" name="filter" id="filter"/>
-        <label htmlFor="filter" className="form-check-label" >Afficher uniquement les produits en stock</label>
+        <input type="checkbox"  onChange={this.handleIsStockOnly}  checked={isStockOnly} className="form-check-input" name="filter" id="filter"/>
+        <label htmlFor="filter"className="form-check-label" >Afficher uniquement les produits en stock</label>
       </div>
     </div>
   }
