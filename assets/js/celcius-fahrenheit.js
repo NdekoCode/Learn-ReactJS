@@ -71,17 +71,27 @@ class Calculator extends React.Component {
 
     return (
       <div>
-        <TemperatureInput
-          scale="c"
-          temperature={celcius}
-          onTemperatureChange={this.handleCelciusChange}
+        <ColumnTwo
+          left={
+            <TemperatureInput
+              scale="c"
+              temperature={celcius}
+              onTemperatureChange={this.handleCelciusChange}
+            />
+          }
+          right={
+            <TemperatureInput
+              scale="f"
+              temperature={fahrenheit}
+              onTemperatureChange={this.handleFahrenheitChange}
+            />
+          }
         />
-        <TemperatureInput
-          scale="f"
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFahrenheitChange}
-        />
-        <BoilingVerdict celcius={temperature} />
+        <div>
+          <BoilingVerdict celcius={temperature} />
+
+          <PrimaryButton>Envoyer</PrimaryButton>
+        </div>
       </div>
     );
   }
@@ -94,7 +104,6 @@ class TemperatureInput extends React.Component {
     this.temperatureHandleChange = this.temperatureHandleChange.bind(this);
   }
   temperatureHandleChange({ target }) {
-    µ;
     // La proprieter onTemperatureChange permet de faire remonter les informations de l'enfant aux parents, c'est un callback utiliser comme une proprieter sur le parent et ce qui est donné comme valeur à a la proprieter declencherant un nouveau rendus à la detection de ce dernier
     this.props.onTemperatureChange(target.value);
   }
@@ -115,5 +124,23 @@ class TemperatureInput extends React.Component {
       </div>
     );
   }
+}
+function ColumnTwo({ left, right }) {
+  return (
+    <div className="row">
+      <div className="col-md-6">{left}</div>
+      <div className="col-md-6">{right}</div>
+    </div>
+  );
+}
+
+function Button({ type, children }) {
+  console.log(type);
+  const className = "btn btn-" + type;
+  return <button className={className}>{children}</button>;
+}
+
+function PrimaryButton({ children }) {
+  return <Button type="primary">{children}</Button>;
 }
 ReactDOM.render(<Home />, document.getElementById("app"));

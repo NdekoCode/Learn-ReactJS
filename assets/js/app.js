@@ -1,200 +1,230 @@
-class Home extends React.Component {
+const PRODUCTS = [
+  {
+    category: "Sporting Goods",
+    price: "$49.99",
+    stocked: true,
+    name: "Football",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$9.99",
+    stocked: true,
+    name: "Baseball",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$29.99",
+    stocked: false,
+    name: "Basketball",
+  },
+  {
+    category: "Electronics",
+    price: "$99.99",
+    stocked: true,
+    name: "iPod Touch",
+  },
+  {
+    category: "Electronics",
+    price: "$399.99",
+    stocked: false,
+    name: "iPhone 5",
+  },
+  { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" },
+  { category: "Sporting Goods", price: "$299.99", stocked: true, name: "Nexus 9" },
+  {
+    category: "Electronics",
+    price: "$599.99",
+    stocked: false,
+    name: "iPhone X",
+  },
+  {
+    category: "Sporting Goods",
+    price: "$39.99",
+    stocked: true,
+    name: "Jordan",
+  },
+];
+function Home() {
+  return (
+    <div className="container mt-5">
+      <FilterableProductTable products={PRODUCTS} />
+    </div>
+  );
+}
+
+/**
+ * @description contient l’intégralité de l’exemple de la liste des produits, c'est l'application elle-meme
+ * @author NdekoCode
+ * @class FilterableProductTable
+ * @extends {React.Component}
+ */
+class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * @param {String} [this.state.filterText=''] L'etat du text, càd le texte par rapport auxquel on fait le filtre
+     * @param {Boolean} [this.state.inStockOnly=false] Permet de savoir si pour l'instant on veux voir que les produits qui sont en stock ou non
+     */
     this.state = {
-      nom: "Arick",
-      member: ["Arick", "Abel"],
-      check: false,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit molestiae maiores cupiditate architecto itaque, sed vero asperiores. Fugiat aliquid atque doloribus laboriosam reprehenderit porro earum sequi, quasi animi omnis dolorum!",
+      filterText:"",
+      inStockOnly:false
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleText = this.handleText.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleBoolean = this.handleBoolean.bind(this);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleFilterIsStockOnly = this.handleFilterIsStockOnly.bind(this);
   }
-  handleText({ target }) {
-    this.setState({
-      description: target.value,
-    });
+/**
+ * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type texte pour filtrer par rapport au mot entrer par l'utilisateur dans ce champs
+ * @author NdekoCode
+ * @param {String} filterTextNewValue L'element à modifier et qui
+ * @memberof FilterableProductTable
+ */
+handleFilterTextChange(filterTextNewValue){
+    this.setState({filterText:filterTextNewValue});
   }
-  handleChange({ target }) {
-    this.setState({ nom: target.value });
-  }
-  handleSelect({ target }) {
-    this.setState({
-      member: Array.from(target.selectedOptions).map((opt) => opt.value),
-    });
-  }
-  handleBoolean({ target }) {
-    this.setState({
-      // Pour les checkbox on utilise "checked" et aussi pour les type "radio"
-      check: target.checked,
-    });
-    console.log(this.state.check, target.checked);
+  /**
+    * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type checkbox pour filtrer ou pas par rapport aux produit en stock
+   * @author NdekoCode
+   * @param {Boolean} {inStockOnlyNewValue} L'element à modifier
+   * @memberof FilterableProductTable
+   */
+  handleFilterIsStockOnly(inStockOnlyNewValue) {
+    this.setState({inStockOnly: inStockOnlyNewValue});
   }
   render() {
+    const { products } = this.props;
+    const {filterText, inStockOnly} = this.state;
     return (
-      <div>
-        <div>
-          <label htmlFor="nom">Nom</label>
-          <input
-            type="text"
-            id="nom"
-            name="nom"
-            value={this.state.nom}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            name="description"
-            id="description"
-            cols="25"
-            rows="5"
-            value={this.state.description}
-            onChange={this.handleText}
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="member">Membre</label>
-          <select
-            name="member"
-            value={this.state.member}
-            onChange={this.handleSelect}
-            id="member"
-            multiple
-          >
-            <option value="Cedric">Membre 1</option>
-            <option value="Arick">Membre 2</option>
-            <option value="Abel">Membre 3</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="check">Check me {this.state.check}</label>
-          <input
-            type="checkbox"
-            id="check"
-            name="check"
-            checked={this.state.check}
-            onChange={this.handleBoolean}
-          />
-          {this.state.check ? (
-            <div>Vous avez checker sur le checkbox</div>
-          ) : null}
-        </div>
-      </div>
+      <React.Fragment>
+      <SearchBar 
+      filterText={filterText} 
+      inStockOnly={inStockOnly}
+      onFilterTextChange={this.handleFilterTextChange}
+      onFilterIsStockOnlyChange={this.handleFilterIsStockOnly}
+      />
+        <ProductTable products={products} filterText={filterText} inStockOnly={inStockOnly} />
+      </React.Fragment>
     );
   }
 }
-class Field extends React.Component {
-  render() {
-    const { type, name, value, onChange, children } = this.props;
-    if (type === "checkbox" || type === "radio") {
-      return (
-        <div className="form-check">
-          <input
-            type={type}
-            name={name}
-            value={value}
-            id={name}
-            onChange={onChange}
-            className="form-check-input"
-          />
-          <label htmlFor={name} className="form-check-label">
-            {children}
-          </label>
-        </div>
-      );
-    }
-    return (
-      <div className="form-group">
-        <label htmlFor={name}>{children}</label>
-        <input
-          type={type}
-          name={name}
-          value={value}
-          id={name}
-          onChange={onChange}
-          className="form-control"
-        />
-      </div>
-    );
-  }
-}
-class Formular extends React.Component {
+/**
+ * @description Affiche et filtre la collection de données en fonction des données saisies par l’utilisateur
+
+ * @author NdekoCode
+ * @class ProductTable
+ * @extends {React.Component}
+ */
+class ProductTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nom: "",
-      prenom: "",
-      email: "",
-      newsletter: false,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.validForm = this.validForm.bind(this);
-  }
-  validForm(evt) {
-    evt.preventDefault();
-    const data = JSON.stringify(this.state);
-    fetch(url, { method: "POST" });
-    this.setState({ nom: "", prenom: "", email: "", newsletter: false });
-  }
-  handleChange({ target }) {
-    const name = target.name;
-    const type = target.type;
-    const value = type === "checkbox" ? target.checked : target.value;
-    this.setState({
-      [name]: value,
-    });
   }
   render() {
-    console.log("Render");
+    const rows = [];
+    let categories =[];
+    // Le tableau qui va contenir les produits trier par categorie
+    let newProducts = [];
+    let lastCategory = null;
+    const { products,inStockOnly, filterText } = this.props;
+    // On parcours tous les produits pour extraire uniquement les categories
+    products.forEach((product)=>{
+      categories.push(product.category);
+    });
+    // On supprime les doublons dans les categories que l'on a obtenus
+    categories = [...new Set(categories)];
+    // On parcours tous les categories unique
+    categories.forEach(category=>{
+      // Pour chaque categorie on on associe les produits qui leurs correspond
+        newProducts.push(...products.filter(newProduct=>newProduct.category===category));
+    });
+  
+    // NB: * la categorie vient avant sa liste des produits
+    // => ? Methode à retenir pour triage par category
+    newProducts.forEach((product,index)=>{
+      // Si on veux avoir uniquement les produit en stock alors sotte tous les indice dont les produit ne sont pas en stock OU si l'element que l'on recherche ne correspond à aucun nom alors saute tous les element dont le nom ne correspond pas à la recherche taper par l'utilisateur, sachez que avec cette methode si l'utilisateur n'a rien rechercher alors tous les produits seront retourner
+      if((inStockOnly && !product.stocked) || product.name.indexOf(filterText)) {
+        return null;
+
+      }
+
+      //D'abord On verifie si notre categorie est nouvelle
+      
+      if(product.category !==lastCategory) {
+        // si il est nouvelle alors on change la valeur de la derniere categorie
+        lastCategory = product.category;
+        categories.push(lastCategory);
+        // Puis on ajoute dans la liste des lignes un nouveau element de type category
+        rows.push(<ProductCategoryRow key={lastCategory} category={lastCategory}/>)
+      }
+      // Sinon dans tous les cas pour chacun de mes produits il faut que je pousse une nouvelle ligne de produit, donc quoi qu'il arrive on ajoute un produit à la ligne
+      rows.push(<ProductRow key={index} product={product}/>)
+    })
     return (
-      <form action="" onSubmit={this.validForm} className="container mt-5">
-        <div>
-          <Field
-            type="text"
-            name="nom"
-            value={this.state.nom}
-            onChange={this.handleChange}
-          >
-            Nom
-          </Field>
-          <Field
-            type="text"
-            name="prenom"
-            value={this.state.prenom}
-            onChange={this.handleChange}
-          >
-            Prenom
-          </Field>
-          <Field
-            type="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          >
-            Email
-          </Field>
-          <Field
-            type="checkbox"
-            name="newsletter"
-            value={this.state.check}
-            onChange={this.handleChange}
-          >
-            S'abonner à la newsletter
-          </Field>
-          <div>
-            <button type="submit" className="btn btn-primary">
-              Valider
-            </button>
-          </div>
-          {JSON.stringify(this.state)}
-        </div>
-      </form>
+      <table className="table table-responsive">
+        <thead >
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+        {rows}
+        </tbody>
+      </table>
     );
   }
 }
-ReactDOM.render(<Formular />, document.getElementById("app"));
+
+
+/**
+ * @description affiche une ligne pour chaque produit
+ * @author NdekoCode
+ * @param {Array} {product}
+ * @return {React.Component} 
+ */
+function ProductRow({product}) {
+  const name = product.stocked ? product.name : <span className="text-danger" title="Le produit n'est pas de stock ">{product.name}</span>
+  return <tr className="w-100">
+            <td>{name}</td>
+              <td>{product.price}</td>
+            </tr>
+}
+/**
+ * @description  affiche le titre pour chaque catégorie dans une ligne
+ * @author NdekoCode
+ * @param {*} {category}
+ * @return {*} 
+ */
+function ProductCategoryRow({category}) {
+  return  <tr>
+        <th colSpan="2">{category}</th>
+  </tr>
+}
+
+
+class SearchBar extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleFilterText = this.handleFilterText.bind(this);
+    this.handleIsStockOnly = this.handleIsStockOnly.bind(this);
+  }
+  handleFilterText({target}){
+    /** le callback a appeler lorsque les changement on été effectué sur cet element enfant */
+    this.props.onFilterTextChange(target.value);
+  }
+  handleIsStockOnly({target}){
+    /** le callback a appeler lorsque les changement on été effectué sur cet element enfant */
+    this.props.onFilterIsStockOnlyChange(target.checked);
+  }
+  render(){
+    const {filterText, isStockOnly} = this.props;
+    return <div className="mb-3">
+      <div className="form-group mb-2">
+        <input type="search" placeholder="Rechercher..." value={filterText} onChange={this.handleFilterText} name="search" id="search" className="form-control"/>
+      </div>
+      <div className="form-check">
+        <input type="checkbox"  onChange={this.handleIsStockOnly}  checked={isStockOnly} className="form-check-input" name="filter" id="filter"/>
+        <label htmlFor="filter"className="form-check-label" >Afficher uniquement les produits en stock</label>
+      </div>
+    </div>
+  }
+}
+ReactDOM.render(<Home />, document.getElementById("app"));
