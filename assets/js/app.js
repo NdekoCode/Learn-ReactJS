@@ -48,13 +48,31 @@ function Home() {
 class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * @param {String} [this.state.filterText=''] L'etat du text, càd le texte par rapport auxquel on fait le filtre
+     * @param {Boolean} [this.state.inStockOnly=false] Permet de savoir si pour l'instant on veux voir que les produits qui sont en stock ou non
+     */
+    this.state = {
+      filterText:"",
+      inStockOnly:false,
+      products: this.props.products
+    };
+  }
+
+  handleFilterTextChange({target}){
+    this.setState({filterText:target.value});
+  }
+  handleFilterIsStockOnly({target}) {
+    this.setState({inStockOnly: target.checked});
   }
   render() {
     const { products } = this.props;
+    const {filterText, inStockOnly} = this.state;
     return (
-      <div>
+      <React.Fragment>
+      <SearchBar filterText={filterText} inStockOnly={inStockOnly}/>
         <ProductTable products={products} />
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -117,7 +135,6 @@ function ProductRow({product}) {
               <td>{product.price}</td>
             </tr>
 }
-
 /**
  * @description  affiche le titre pour chaque catégorie dans une ligne
  * @author NdekoCode
@@ -126,7 +143,25 @@ function ProductRow({product}) {
  */
 function ProductCategoryRow({category}) {
   return  <tr>
-        <th  colSpan="2">{category}</th>
+        <th colSpan="2">{category}</th>
   </tr>
+}
+
+
+class SearchBar extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return <div className="mb-3">
+      <div className="form-group mb-2">
+        <input type="search" placeholder="Rechercher..." value={undefined} name="search" id="search" className="form-control"/>
+      </div>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" name="filter" id="filter"/>
+        <label htmlFor="filter" className="form-check-label" >Afficher uniquement les produits en stock</label>
+      </div>
+    </div>
+  }
 }
 ReactDOM.render(<Home />, document.getElementById("app"));
