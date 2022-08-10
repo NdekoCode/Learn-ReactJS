@@ -115,9 +115,12 @@ class FilterableProductTable extends React.PureComponent {
  * @class ProductTable
  * @extends {React.Component}
  */
-class ProductTable extends React.PureComponent {
+class ProductTable extends React.Component {
   constructor(props) {
     super(props);
+  }
+  handleClick() {
+    console.log("click product");
   }
   render() {
     const rows = [];
@@ -163,7 +166,13 @@ class ProductTable extends React.PureComponent {
         );
       }
       // Sinon dans tous les cas pour chacun de mes produits il faut que je pousse une nouvelle ligne de produit, donc quoi qu'il arrive on ajoute un produit à la ligne
-      rows.push(<ProductRow key={index} product={product} />);
+      rows.push(
+        <ProductRow
+          onClick={this.handleClick.bind(this)}
+          key={index}
+          product={product}
+        />
+      );
     });
     return (
       <table className="table table-responsive">
@@ -185,7 +194,8 @@ class ProductTable extends React.PureComponent {
  * @param {Array} {product}
  * @return {React.Component}
  */
-function ProductRowComponent({ product }) {
+const ProductRow = React.memo(function ({ product }) {
+  console.log("render product");
   const name = product.stocked ? (
     product.name
   ) : (
@@ -200,8 +210,7 @@ function ProductRowComponent({ product }) {
       <td>{product.price}</td>
     </tr>
   );
-}
-const ProductRow = React.memo(ProductRowComponent);
+});
 /**
  * @description  affiche le titre pour chaque catégorie dans une ligne
  * @author NdekoCode
@@ -268,17 +277,3 @@ ReactDOM.render(
   </div>,
   document.getElementById("app")
 );
-PRODUCTS.push({
-  category: "Electronics",
-  price: "$899.99",
-  stocked: false,
-  name: "iPhone 11 Pro",
-});
-window.setTimeout(() => {
-  ReactDOM.render(
-    <div className="container mt-5">
-      <FilterableProductTable products={PRODUCTS} />
-    </div>,
-    document.getElementById("app")
-  );
-}, 2000);
