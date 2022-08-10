@@ -72,14 +72,6 @@ class FilterableProductTable extends React.PureComponent {
   }
 
   /**
-   * @description Ce fonction permet de savoir si  le composant devrait etre mis à jour,  càd est-ce que la fonction render doit etre réappeler ou pas
-   * @author NdekoCode
-   * @memberof FilterableProductTable
-   */
-  shouldComponentUpdate() {
-    return false;
-  }
-  /**
    * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type texte pour filtrer par rapport au mot entrer par l'utilisateur dans ce champs
    * @author NdekoCode
    * @param {String} filterTextNewValue L'element à modifier et qui
@@ -98,7 +90,6 @@ class FilterableProductTable extends React.PureComponent {
     this.setState({ inStockOnly: inStockOnlyNewValue });
   }
   render() {
-    console.log("render");
     const { products } = this.props;
     const { filterText, inStockOnly } = this.state;
     return (
@@ -202,7 +193,6 @@ class ProductTable extends React.Component {
  * @return {React.Component}
  */
 const ProductRow = React.memo(function ({ product }) {
-  console.log("render product");
   const name = product.stocked ? (
     product.name
   ) : (
