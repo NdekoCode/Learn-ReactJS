@@ -268,74 +268,16 @@ ReactDOM.render(
   </div>,
   document.getElementById("app")
 );
-
-const PRODUCTS2 = [
-  {
-    category: "Sporting Goods",
-    price: "$49.99",
-    stocked: true,
-    name: "Football",
-  },
-  {
-    category: "Sporting Goods",
-    price: "$9.99",
-    stocked: true,
-    name: "Baseball",
-  },
-  {
-    category: "Sporting Goods",
-    price: "$29.99",
-    stocked: false,
-    name: "Basketball",
-  },
-  {
-    category: "Electronics",
-    price: "$99.99",
-    stocked: true,
-    name: "iPod Touch",
-  },
-  {
-    category: "Electronics",
-    price: "$399.99",
-    stocked: false,
-    name: "iPhone 5",
-  },
-  {
-    category: "Electronics",
-    price: "$199.99",
-    stocked: true,
-    name: "Nexus 7",
-  },
-  {
-    category: "Sporting Goods",
-    price: "$299.99",
-    stocked: true,
-    name: "Nexus 9",
-  },
-  {
-    category: "Electronics",
-    price: "$599.99",
-    stocked: false,
-    name: "iPhone X",
-  },
-  {
-    category: "Sporting Goods",
-    price: "$39.99",
-    stocked: true,
-    name: "Jordan",
-  },
-  ,
-  {
-    category: "Electronics",
-    price: "$899.99",
-    stocked: false,
-    name: "iPhone 11 Pro",
-  },
-];
+PRODUCTS.push({
+  category: "Electronics",
+  price: "$899.99",
+  stocked: false,
+  name: "iPhone 11 Pro",
+});
 window.setTimeout(() => {
   ReactDOM.render(
     <div className="container mt-5">
-      <FilterableProductTable products={PRODUCTS2} />
+      <FilterableProductTable products={PRODUCTS} />
     </div>,
     document.getElementById("app")
   );
