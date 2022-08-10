@@ -70,6 +70,15 @@ class FilterableProductTable extends React.PureComponent {
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleFilterIsStockOnly = this.handleFilterIsStockOnly.bind(this);
   }
+
+  /**
+   * @description Ce fonction permet de savoir si  le composant devrait etre mis à jour,  càd est-ce que la fonction render doit etre réappeler ou pas
+   * @author NdekoCode
+   * @memberof FilterableProductTable
+   */
+  shouldComponentUpdate() {
+    return false;
+  }
   /**
    * @description Va permettre au composant SearchBar de faire remonter les informations de son input de type texte pour filtrer par rapport au mot entrer par l'utilisateur dans ce champs
    * @author NdekoCode
@@ -89,6 +98,7 @@ class FilterableProductTable extends React.PureComponent {
     this.setState({ inStockOnly: inStockOnlyNewValue });
   }
   render() {
+    console.log("render");
     const { products } = this.props;
     const { filterText, inStockOnly } = this.state;
     return (
