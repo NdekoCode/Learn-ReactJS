@@ -2,25 +2,17 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.refHandle = this.refHandle.bind(this);
     this.input = React.createRef();
   }
   handleClick(e) {
     console.log(e, this.input.current.value);
   }
-  refHandle(ref) {
-    console.log(ref);
-  }
   render() {
-    console.log(this.input.current);
+    console.log(this.input);
     return (
       <div className="container mt-5">
         <div className="form-group d-flex">
-          <input
-            type="text"
-            ref={this.input}
-            className="form-control rounded-0 rounded-start"
-          />
+          <Field ref={this.input} />
           <button
             className="btn btn-secondary rounded-0 rounded-end"
             onClick={this.handleClick}
@@ -32,4 +24,16 @@ class Home extends React.Component {
     );
   }
 }
+
+const Field = React.forwardRef(function (props, ref) {
+  return (
+    <div className="form-group">
+      <input
+        type="text"
+        className="form-control rounded-0 rounded-start"
+        ref={ref}
+      />
+    </div>
+  );
+});
 ReactDOM.render(<Home />, document.getElementById("app"));
