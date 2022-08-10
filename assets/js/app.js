@@ -118,6 +118,7 @@ class FilterableProductTable extends React.PureComponent {
 class ProductTable extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
     console.log("click product");
@@ -167,11 +168,7 @@ class ProductTable extends React.Component {
       }
       // Sinon dans tous les cas pour chacun de mes produits il faut que je pousse une nouvelle ligne de produit, donc quoi qu'il arrive on ajoute un produit à la ligne
       rows.push(
-        <ProductRow
-          onClick={this.handleClick.bind(this)}
-          key={index}
-          product={product}
-        />
+        <ProductRow onClick={this.handleClick} key={index} product={product} />
       );
     });
     return (
