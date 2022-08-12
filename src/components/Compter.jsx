@@ -1,6 +1,16 @@
 import React, { useState } from "react";
+import "../assets/css/Compter.css";
 export function Compter() {
-  const [count, setState] = useState(0);
-  console.log(count);
-  return <button>{count}</button>;
+  let [state, setState] = useState({ id: 1 });
+  const handleClick = (evt) => {
+    evt.preventDefault();
+    setState({ count: 10 });
+  };
+  return (
+    <div className="compter">
+      <button onClick={handleClick}>
+        Nombre compter: {JSON.stringify(state)}
+      </button>
+    </div>
+  );
 }
