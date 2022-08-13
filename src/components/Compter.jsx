@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import "../assets/css/Compter.css";
-function useIncrement(init = 0, step = 1) {
-  const [count, setCount] = useState(init);
-  const increment = () => {
-    setCount((count) => count + step);
-  };
-  return [count, increment];
-}
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
+import { useIncrement, useAutoIncrement } from "../hooks/Hooks";
+
 export function Compter() {
-  let [count, increment] = useIncrement(3, 2);
-  useEffect(() => {
-    // depend de l’Etat du state du composant sur lequel il s'execute
-    const timer = window.setInterval(() => {
-      increment();
-    }, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
-  useEffect(() => {
-    document.title = "Compteur " + count;
-  }, [count]);
-  return (
-    <div className="compter">
-      <button onClick={increment}>Nombre compter:{count}</button>
-    </div>
-  );
+  const [count, increment] = useIncrement(1, 1, true);
+  console.log("render");
+  return <button onClick={increment}>Increment {count}</button>;
+}
+export function AutoCompter() {
+  const count = useAutoIncrement(1, 1);
+  return <button>Increment {count}</button>;
 }
