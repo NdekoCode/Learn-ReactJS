@@ -39,18 +39,22 @@ export function usePostComments() {
 }
 export function useFetchData(url, params = undefined) {
   // On initialise l'Etat du des données à charger en AJAX
-  const [loading, setLoading] = useState(true);
-  const [state, setState] = useState([]);
+  const [state, setState] = useState({
+    items: [],
+    loading: true,
+  });
   useEffect(() => {
     // On met une fonction asynchrone que l'on va appeler plus tard pour executer les requetes
     (async () => {
       const response = await fetch(url, params);
       const responseData = await response.json();
       if (response.ok) {
-        setState((state) => Object.assign(state, responseData));
-        setLoading(false);
+        setState((state) => ({
+          items: Object.assign(state.items, responseData),
+          loading: false,
+        }));
       }
     })();
   }, []);
-  return [state, loading];
+  return [state.items, state.loading];
 }

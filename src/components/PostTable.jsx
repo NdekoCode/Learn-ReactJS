@@ -25,12 +25,12 @@ export function PostTable() {
         </tr>
       </thead>
       <tbody>
-        {postComments.map((pComments, index) => (
+        {postComments.map(({ id, name, email, body }, index) => (
           <tr key={index}>
-            <td>{pComments.id}</td>
-            <td>{pComments.name}</td>
-            <td>{pComments.email}</td>
-            <td>{pComments.body}</td>
+            <td>{id}</td>
+            <td>{name}</td>
+            <td>{email}</td>
+            <td>{body}</td>
           </tr>
         ))}
       </tbody>
