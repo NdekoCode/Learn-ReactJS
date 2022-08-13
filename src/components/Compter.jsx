@@ -11,8 +11,8 @@ export function Compter() {
   let [count, increment] = useIncrement(3, 2);
   useEffect(() => {
     // depend de l’Etat du state du composant sur lequel il s'execute
-    document.title = "Compteur " + count;
-  }, [count]);
+    window.setInterval(() => increment(), 1000);
+  }, []);
   return (
     <div className="compter">
       <button onClick={increment}>Nombre compter:{count}</button>
