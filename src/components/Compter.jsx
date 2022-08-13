@@ -1,28 +1,17 @@
 import React, { useState } from "react";
 import "../assets/css/Compter.css";
-function useIncrement() {
-  const [count, setCount] = useState(0);
+function useIncrement(init = 0, step = 1) {
+  const [count, setCount] = useState(init);
   const increment = () => {
-    setCount((count) => count + 1);
+    setCount((count) => count + step);
   };
   return [count, increment];
 }
 export function Compter() {
-  let [state, setState] = useState({ count: 1 });
-  const handleClick = (evt) => {
-    evt.preventDefault();
-    setState((state) => {
-      return {
-        ...state,
-        count: state.count + 1,
-      };
-    });
-  };
+  let [count, increment] = useIncrement(3, 2);
   return (
     <div className="compter">
-      <button onClick={handleClick}>
-        Nombre compter:{state.count} {JSON.stringify(state)}
-      </button>
+      <button onClick={increment}>Nombre compter:{count}</button>
     </div>
   );
 }
