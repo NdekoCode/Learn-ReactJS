@@ -17,6 +17,9 @@ export function Compter() {
     }, 1000);
     return () => window.clearInterval(timer);
   }, []);
+  useEffect(() => {
+    document.title = "Compteur " + count;
+  }, [count]);
   return (
     <div className="compter">
       <button onClick={increment}>Nombre compter:{count}</button>
