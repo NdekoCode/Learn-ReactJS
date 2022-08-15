@@ -2,7 +2,7 @@ import React from "react";
 // import { AutoCompter } from "./Compter";
 
 import { useToggleCompterVisible } from "../hooks/Hooks";
-import { PostTable } from "./PostTable";
+import { Encode } from "./Encode";
 export function Home() {
   const [compterVisible, toggleCompter] = useToggleCompterVisible();
   return (
@@ -15,7 +15,7 @@ export function Home() {
           onChange={toggleCompter}
         />
         <br />
-        {compterVisible && <PostTable />}
+        {compterVisible && <Encode />}
       </div>
     </div>
   );
