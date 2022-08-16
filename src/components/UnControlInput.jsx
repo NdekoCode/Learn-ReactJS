@@ -4,15 +4,26 @@ export function UnControlInput() {
   const compter = useRef({ count: 0 });
   const handleClick = () => {
     compter.current.count++;
-    console.log(compter);
   };
   const handleChange = () => {
     console.log(input.current.value);
   };
   return (
     <div className="container mt-5">
-      <input type="text" ref={input} onChange={handleChange} />
-      <button onClick={handleClick}>Recuperer la valeur {compter.count}</button>
+      <div className="form-group d-flex align-items-center w-100">
+        <input
+          type="text"
+          ref={input}
+          className="form-control rounded-0 rounded-start"
+          onChange={handleChange}
+        />
+        <button
+          onClick={handleClick}
+          className="btn btn-primary w-25 rounded-0 rounded-end"
+        >
+          Get value {compter.current.value}
+        </button>
+      </div>
     </div>
   );
 }
