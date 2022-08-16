@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Button } from "./Button";
 
 function wait(t) {
@@ -25,7 +25,7 @@ export function Encode() {
   };
   //   Dès que le number dans [number] change on reéxecute la fonction
   const encoded = useMemo(() => encodeNumber(number), [number]);
-  const handleClick = () => alert("Bonjour");
+  const handleClick = useCallback(() => alert("Bonjour"), []);
   return (
     <div>
       <div className="form-group">
@@ -55,7 +55,7 @@ export function Encode() {
           onChange={handleChange}
         />
       </div>
-      <Button handleClick={handleClick} />
+      <Button onClick={handleClick} />
       <div>
         <button
           onClick={() => setCount((c) => c + 1)}
