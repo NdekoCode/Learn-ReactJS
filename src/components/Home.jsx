@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 // import { AutoCompter } from "./Compter";
 
 import { useToggleCompterVisible } from "../hooks/Hooks";
-import { Encode } from "./Encode";
+// import { Encode } from "./Encode";
+import { CompterReducer } from "./CompterReducer";
 import { UnControlInput } from "./UnControlInput";
 export function Home() {
   const [compterVisible, toggleCompter] = useToggleCompterVisible();
@@ -19,7 +20,7 @@ export function Home() {
           onChange={toggleCompter}
         />
         <br />
-        {compterVisible && <Encode />}
+        {compterVisible && <CompterReducer />}
       </div>
     </div>
   );
