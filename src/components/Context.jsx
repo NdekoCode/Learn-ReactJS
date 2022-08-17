@@ -1,10 +1,14 @@
 import React from "react";
-import { ThemedButton } from "./Home";
+import { ThemedButton, ThemeContext } from "./Home";
 export function Context() {
   return (
-    <div>
-      <Toolbar />
-    </div>
+    <ThemeContext.Consumer>
+      {(value) => (
+        <div style={value}>
+          <Toolbar />
+        </div>
+      )}
+    </ThemeContext.Consumer>
   );
 }
 

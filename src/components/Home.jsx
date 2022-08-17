@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { Context } from "./Context";
 const theme = {
   dark: {
@@ -12,17 +12,16 @@ const theme = {
 };
 
 export function ThemedButton({ children }) {
-  return (
-    <ThemeContext.Consumer>
-      {(value) => <button style={value}>{children}</button>}
-    </ThemeContext.Consumer>
-  );
+  const value = useContext(ThemeContext);
+  return <button style={value}>{children}</button>;
 }
 export const ThemeContext = createContext(theme.dark);
 export function Home() {
   return (
     <div className="container my-5">
-      <Context />
+      <ThemeContext.Consumer>
+        {(value) => <Context style={value} />}
+      </ThemeContext.Consumer>
     </div>
   );
 }
