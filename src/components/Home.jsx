@@ -1,27 +1,33 @@
-import React, { createContext, useContext } from "react";
-import { Context } from "./Context";
-const theme = {
-  dark: {
-    background: "#333",
-    color: "#f1f1f1",
-  },
-  light: {
-    background: "#f1f1f1",
-    color: "#333",
-  },
-};
-
-export function ThemedButton({ children }) {
-  const value = useContext(ThemeContext);
-  return <button style={value}>{children}</button>;
-}
-export const ThemeContext = createContext(theme.dark);
+import React, { useState, useContext, useMemo, useCallback } from "react";
+import { ThemeContext, THEMES } from "./MyComponentToLearnContext";
+import { MyComponentToLearnContext } from "./MyComponentToLearnContext";
 export function Home() {
+  const [theme, setTheme] = useState("dark");
+  const toggleTheme = useCallback(() => {
+    console.log("lol");
+    return setTheme((t) => (t === "light" ? "dark" : "light"));
+  }, []);
+  const value = useMemo(
+    function () {
+      return {
+        theme: theme === "light" ? THEMES.light : THEMES.dark,
+        toggleTheme: toggleTheme,
+      };
+    },
+    [toggleTheme, theme]
+  );
   return (
     <div className="container my-5">
-      <ThemeContext.Consumer>
-        {(value) => <Context style={value} />}
-      </ThemeContext.Consumer>
+      <ThemeContext.Provider value={value}>
+        <MyComponentToLearnContext />
+        {/* ThemeSwitcher Est aussi dans mon context donc il peut aussi utilser le contenus de mon context dans sont composant */}
+        <ThemeSwitcher></ThemeSwitcher>
+      </ThemeContext.Provider>
     </div>
   );
+}
+function ThemeSwitcher() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  console.log(toggleTheme, theme);
+  return <button onClick={toggleTheme}> Modifier le theme</button>;
 }
