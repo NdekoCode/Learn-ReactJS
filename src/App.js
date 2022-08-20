@@ -1,13 +1,10 @@
-import "./App.css";
 import "./assets/css/app.css";
-import { Home } from "./components/Home";
+import { Portal } from "./components/Portal";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Home />
-      </header>
+      <Portal />
     </div>
   );
 }
