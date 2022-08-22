@@ -1,4 +1,7 @@
+import React from "react";
 export function Tabs({ children }) {
+  children = React.Children.toArray(children);
+  console.log(children);
   return (
     <div>
       Hello <br />
