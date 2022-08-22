@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useState } from "react";
+import { ErrorBoundary } from "./ErrorBoundary";
 import { Modal } from "./Modal";
 
 const log = () => {
@@ -38,7 +39,9 @@ export function Card() {
 
         {/* <!-- Modal --> */}
       </div>
-      {modal && <Modal onClose={hideModal} />}
+      <ErrorBoundary fallback="La recuperation du Modal a échouer">
+        {modal && <Modal onClose={hideModal} />}
+      </ErrorBoundary>
     </div>
   );
 }
