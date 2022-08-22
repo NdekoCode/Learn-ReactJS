@@ -1,3 +1,4 @@
+import { Card } from "./Card";
 import { Tab, Tabs } from "./Tabs";
 export const Home = () => {
   return (
@@ -18,6 +19,7 @@ export const Home = () => {
           iste similique error.
         </Tab>
       </Tabs>
+      <Card />
     </div>
   );
 };
