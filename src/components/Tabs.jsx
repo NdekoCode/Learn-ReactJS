@@ -4,18 +4,20 @@ export function Tabs({ children }) {
   console.log(children);
   return (
     <div>
-      Hello <br />
+      <nav>
+        {children.map((child) => (
+          <a href="#" key={child.key}>
+            {child.props.title}
+          </a>
+        ))}
+      </nav>
       {children}
     </div>
   );
 }
-export function Tab({ title, children }) {
+export function Tab({ children, selected }) {
   return (
-    <div>
-      World
-      <h3>
-        <a href="#d">{title}</a>
-      </h3>
+    <div hidden={!selected}>
       <p>{children}</p>
     </div>
   );
