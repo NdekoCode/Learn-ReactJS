@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 import { useState } from "react";
 import { Modal } from "./Modal";
+
+const log = () => {
+  console.log("click");
+};
 export function Card() {
   const style = {
     // transform: "translateY(1px)",
@@ -14,7 +18,7 @@ export function Card() {
     showModal();
   };
   return (
-    <div className="card" style={style}>
+    <div className="card" style={style} onClick={log}>
       <div className="card-body">
         <h3 className="card-title">Card title</h3>
         <p className="card-text">

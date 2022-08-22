@@ -1,5 +1,6 @@
 import { Card } from "./Card";
 import { Tab, Tabs } from "./Tabs";
+import ErrorBoundary from "./ErrorBoundary";
 export const Home = () => {
   return (
     <div className="container my-5">
