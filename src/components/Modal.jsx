@@ -2,7 +2,6 @@ import React from "react";
 import { createPortal } from "react-dom";
 
 export function Modal({ onClose }) {
-  throw new Error("Erreur lors du rendus");
   return createPortal(
     <>
       <div

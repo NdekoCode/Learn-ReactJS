@@ -39,6 +39,7 @@ export function Card() {
 
         {/* <!-- Modal --> */}
       </div>
+      {/* On l'entoure d'un Composant qui permettrant de capturer les erreurs qui se trouve sur le composant Madol */}
       <ErrorBoundary fallback="La recuperation du Modal a échouer">
         {modal && <Modal onClose={hideModal} />}
       </ErrorBoundary>
