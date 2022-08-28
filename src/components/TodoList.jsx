@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { UPDATE_TODO_ACTION } from "../stores/todoReducer";
+import { toggleTodoAction } from "../stores/todoActions";
+import { todoSelector } from "../stores/todoSelectors";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
 const TodoList = ({ todos, onToggle }) => {
@@ -17,15 +18,12 @@ const TodoList = ({ todos, onToggle }) => {
     </div>
   );
 };
+//C'est ici où l'on utilise le store qu'on passe en paramètre dans Provider directement dans le fichier App.js
 export const TodoListStore = connect(
-  (state) => ({ todos: state.todos }),
-
+  // On importe notre selector qui permet de recuperer nos todos dans l'etat du store
+  (state) => ({ todos: todoSelector(state) }),
   (dispatch) => ({
-    onToggle: (todo) =>
-      dispatch({
-        type: UPDATE_TODO_ACTION,
-        payload: { ...todo, completed: !todo.completed },
-      }),
+    onToggle: (todo) => dispatch(toggleTodoAction(todo)),
   })
 )(TodoList);
 export default TodoList;

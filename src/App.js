@@ -1,5 +1,4 @@
 import { Provider } from "react-redux";
-import { Home } from "./components/Home";
 import { TodoListStore } from "./components/TodoList";
 import store from "./stores/index";
 

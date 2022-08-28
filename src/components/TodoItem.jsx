@@ -1,5 +1,4 @@
 const TodoItem = ({ todo, onToggle }) => {
-  console.log(todo);
   return (
     <li className="list-group-item d-flex align-items-center border-0 mb-2 rounded">
       <input
