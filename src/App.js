@@ -1,11 +1,13 @@
-import "./assets/css/app.css";
+import { Provider } from "react-redux";
 import { Home } from "./components/Home";
+import TodoList from "./components/TodoList";
+import store from "./stores/index";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Provider store={store}>
+      <TodoList />
+    </Provider>
   );
 }
 
