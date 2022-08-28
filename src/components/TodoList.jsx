@@ -1,18 +1,10 @@
 import { useCallback } from "react";
-import { /*connect,*/ useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleTodoAction } from "../stores/todoActions";
 import { todoSelector } from "../stores/todoSelectors";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
-export const TodoList = () => {
-  const todos = useSelector(todoSelector);
-  const dispatch = useDispatch();
-  const onToggle = useCallback(
-    (todo) => {
-      dispatch(toggleTodoAction(todo));
-    },
-    [dispatch]
-  );
+const TodoList = ({ todos, onToggle }) => {
   return (
     <div>
       <h1>My Todos</h1>
@@ -28,11 +20,15 @@ export const TodoList = () => {
   );
 };
 //C'est ici où l'on utilise le store qu'on passe en paramètre dans Provider directement dans le fichier App.js
-// export const TodoListStore = connect(
-//   // On importe notre selector qui permet de recuperer nos todos dans l'etat du store
-//   (state) => ({ todos: todoSelector(state) }),
-//   (dispatch) => ({
-//     onToggle: (todo) => dispatch(toggleTodoAction(todo)),
-//   })
-// )(TodoList);
-// export default TodoList;
+
+export const TodoListStore = () => {
+  const todos = useSelector(todoSelector);
+  const dispatch = useDispatch();
+  const onToggle = useCallback(
+    (todo) => {
+      dispatch(toggleTodoAction(todo));
+    },
+    [dispatch]
+  );
+  return <TodoList todos={todos} onToggle={onToggle} />;
+};
