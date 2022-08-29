@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import { MakeAnimation } from "./components/MakeAnimation";
 import store from "./stores/index";
+import "./index.css"
 
 function App() {
   return (
