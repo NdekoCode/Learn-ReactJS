@@ -26,3 +26,10 @@ code {
 .fade__class.out {
   opacity:0!important;
 }
+.fade_top {
+  transition: transform 0.35s;
+}
+
+.fade_top.out {
+  transform: translateY(-5px);
+}
