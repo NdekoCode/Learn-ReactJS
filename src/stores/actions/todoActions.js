@@ -1,4 +1,4 @@
-import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION } from "./todoReducer";
+import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION } from "../reducers/todoReducer";
 export const toggleTodoAction = (todo) => {
   return {
     type: UPDATE_TODO_ACTION,
