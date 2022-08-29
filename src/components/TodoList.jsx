@@ -29,9 +29,9 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
 export const TodoListStore = () => {
     // On importe nos todos depuis notre selecteur, useSelector lui envoyera le store qui est passer dans le fichier App.js d'une manière implicite
   const todos = useSelector(todoSelector);
-  // On importe le dispatcheur qui permet d'envoyer une action à notre store
+  // On importe le dispatcheur qui permet d'envoyer une action à notre reducer
   const dispatch = useDispatch();
-  // Dans ce dispatche on initialise une fonction qui va utiliser l'action de modification d'un todos et on envois cet action à l'aide du dispatcheur et on utilise généralement useCallback() pour éviter qu’il ne soit régénérer systématiquement
+  // On initialise une fonction qui va utiliser dispatch à fin de faire l'action de modification d'un "todo" et on envois cet action à l'aide du dispatcheur et on utilise généralement useCallback() pour éviter qu’il ne soit régénérer systématiquement
   const onToggle = useCallback(
     (todo) => {
       dispatch(toggleTodoAction(todo));

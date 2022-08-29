@@ -8,9 +8,9 @@ export function TodoFilter({ onChange }) {
     </div>
   );
 }
-// Dans connect on met null car on a pas l'intention de récuperer des props
-export const TodoFilterStore = connect(
-    null, 
-    (dispatch) => ({
-  onChange: () => null,
-}))(TodoFilter);
+// Dans connect on met null en premier paramètre car on a pas l'intention de récuperer des 
+export const TodoFilterStore = connect(null,
+  // Le deuxième paramètre de connect prend en paramètre un dispatch pour pouvoir envoyer une action, et souvent dispatch c'est une fonction qui renvois un objet contenant la fonction qui va l'utiliser
+  (dispatch)=>({
+    onChange: ()=>{}
+  }))(TodoFilter)
