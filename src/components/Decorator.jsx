@@ -1,5 +1,7 @@
+import "../assets/css/wave.css";
 const Decorator = () => (
   <svg
+    className="waving-anime"
     width="100px"
     height="100px"
     viewBox="0 0 100 100"
