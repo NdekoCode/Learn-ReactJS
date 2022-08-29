@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodoAction, toggleTodoAction } from "../stores/actions/todoActions";
-import { filteredTodoSelector, todoSelector } from "../stores/selectors/todoSelectors";
+import { filteredTodoSelector } from "../stores/selectors/todoSelectors";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
 const TodoList = ({ todos, onToggle, onDelete }) => {
