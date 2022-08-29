@@ -31,9 +31,3 @@
   display: inline-block;
   animation: rotate 600ms infinite linear;
 }
-
-@keyframes rotate {
-  to {
-    transform: rotate(1turn);
-  }
-}

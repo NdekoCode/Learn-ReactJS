@@ -13,6 +13,7 @@ const initialValue = [
 let id = 3;
 export const ADD_TODO_ACTION = "ADD_TODO_ACTION";
 export const UPDATE_TODO_ACTION = "UPDATE_TODO_ACTION";
+export const DELETE_TODO_ACTION = "DELETE_TODO_ACTION";
 
 export function todoReducer(state = initialValue, action) {
   switch (action.type) {
@@ -29,6 +30,8 @@ export function todoReducer(state = initialValue, action) {
         // Dans le cas contraire si on ne trouve rien alors on retourne seulement la todo
         return todo;
       });
+    case DELETE_TODO_ACTION:
+      return state.filter((todo) => todo.id !== action.payload.id);
 
     default:
       return state;

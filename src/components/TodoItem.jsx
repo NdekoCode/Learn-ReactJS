@@ -1,4 +1,5 @@
-const TodoItem = ({ todo, onToggle }) => {
+const TodoItem = ({ todo, onToggle, onDelete }) => {
+  console.log(todo);
   return (
     <li className="list-group-item d-flex align-items-center border-0 mb-2 rounded">
       <input
@@ -7,12 +8,12 @@ const TodoItem = ({ todo, onToggle }) => {
         name={todo.title}
         id={todo.id}
         checked={todo.completed}
-        onChange={() => {
-          onToggle(todo);
-          console.log(todo.completed);
-        }}
+        onChange={() => onToggle(todo)}
       />
       <label htmlFor={todo.id}>{todo.title}</label>
+      <button className="ms-3 cursor-pointer" onClick={() => onDelete(todo)}>
+        X
+      </button>
     </li>
   );
 };

@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTodoAction } from "../stores/todoActions";
+import { deleteTodoAction, toggleTodoAction } from "../stores/todoActions";
 import { todoSelector } from "../stores/todoSelectors";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
-const TodoList = ({ todos, onToggle }) => {
+const TodoList = ({ todos, onToggle, onDelete }) => {
   return (
     <div>
       <h1>My Todos</h1>
@@ -13,7 +13,12 @@ const TodoList = ({ todos, onToggle }) => {
       </div>
       <ul>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={onToggle}
+            onDelete={onDelete}
+          />
         ))}
       </ul>
     </div>
@@ -30,5 +35,9 @@ export const TodoListStore = () => {
     },
     [dispatch]
   );
-  return <TodoList todos={todos} onToggle={onToggle} />;
+  const onDelete = useCallback(
+    (todo) => dispatch(deleteTodoAction(todo)),
+    [dispatch]
+  );
+  return <TodoList todos={todos} onToggle={onToggle} onDelete={onDelete} />;
 };
