@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodoAction, toggleTodoAction } from "../stores/actions/todoActions";
 import { filteredTodoSelector } from "../stores/selectors/todoSelectors";
+import { AddTodoForm } from "./AddTodoForm";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
 const TodoList = ({ todos, onToggle, onDelete }) => {
@@ -10,6 +11,13 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
       <h1>My Todos</h1>
       <div className="d-flex justify-content-center align-items-center">
         <Decorator />
+      </div>
+      <div className="card shadow border-0 my-3">
+        <div className="card-body d-flex justify-content-center flex-column align-items-center">
+
+        <div className="d-flex justify-content-center align-items-center">
+        
+      <AddTodoForm/>
       </div>
       <ul>
         {todos.map((todo) => (
@@ -21,6 +29,8 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
           />
         ))}
       </ul>
+        </div>
+      </div>
     </div>
   );
 };
