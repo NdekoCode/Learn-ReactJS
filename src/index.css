@@ -36,6 +36,14 @@ code {
 .fade_top.out {
   transform: translateY(-5px);
 }
+
+.fade_x {
+  transition: transform 0.35s;
+}
+
+.fade_x.out {
+  transform: translateX(-25px);
+}
 @keyframes fadeOut {
   from {
     opacity: 0;

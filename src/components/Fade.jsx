@@ -41,7 +41,7 @@ const LEAVING = 4;
  * @param {ReactElement} [props.duration] La durée d'animation
  * @returns {JSX}
  */
-export const Fade = ({ visible, children, duration = 350 ,animateEnter=false}) => {
+export const Fade = ({ visible, children, duration = 350,classEnter="fade__class",classEnd="fade__class out" ,animateEnter=false}) => {
     const childRef = useRef(children); // Pour de raison de performance.
     if(visible) {
         childRef.current = children;
@@ -55,7 +55,7 @@ export const Fade = ({ visible, children, duration = 350 ,animateEnter=false}) =
   // Quand l'element est visible(VISIBLE) il aura juste la classe "fade__class", quand l'element est masquer(HIDDEN) ou lorsqu'il est entrer de commencer une animation(ENTERING) ou lorsqu'il est entrer de quitter(LEAVING) il aura la classe "fade_class out"
 
   // On va activer ou desactiver cette clase "out" si l'on veut une animation
-  let className = state === VISIBLE ? "fade__class" : "fade__class out";
+  let className = state === VISIBLE ? classEnter : classEnd;
   useEffect(() => {
     // Si l'element n'est pas visible alors il faut modifier l'etat et commencer à quitter le dom
     if (!visible) {

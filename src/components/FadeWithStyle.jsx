@@ -41,16 +41,29 @@ const LEAVING = 4;
  * @param {ReactElement} [props.duration] La durée d'animation
  * @returns {JSX}
  */
-export const FadeWithStyle = ({ visible, children, duration = 350,animateEnter=false }) => {
-    const childRef = useRef(children); // Pour de raison de performance.
-    if(visible) {
-        childRef.current = children;
-    }
+export const FadeWithStyle = ({
+  visible,
+  children,
+  duration = 350,
+  styleStart = {
+    transitionDuration: `${duration}ms`,
+    transitionProperty: "opacity transform",
+  },
+  styleEnd = { opacity: 0, transform: "translateY(-5px)" },
+  animateEnter = false,
+}) => {
+  console.log(styleStart)
+  const childRef = useRef(children); // Pour de raison de performance.
+  if (visible) {
+    childRef.current = children;
+  }
   // Il faut maintenant connaitre dans ces 4 ETAT ci-haut dans quel Etat se situe notre composant et suivant la propriété visible notre composant peut se trouver dans deux ETATS qui sont: HIDDEN quand "visible" vaut 'false' et VISIBLE quand "visible" vaut 'true'
   // Quand le composant est monté on verifie si on doit afficher l'enfant ou le cacher
   // Pour savoir son Etat de départ on créer un Etat.
   // si on a une animation en Entrer  on ne va pas lui mettre d'abord VISIBLE mais plutut ENTERING
-  const [state, setState] = useState(visible ? (animateEnter ? ENTERING: VISIBLE) : HIDDEN);
+  const [state, setState] = useState(
+    visible ? (animateEnter ? ENTERING : VISIBLE) : HIDDEN
+  );
   // Maintenant on base notre classe sur la valeur de ce 4 constante:
   // Quand l'element est visible(VISIBLE) il aura juste la classe "fade__class", quand l'element est masquer(HIDDEN) ou lorsqu'il est entrer de commencer une animation(ENTERING) ou lorsqu'il est entrer de quitter(LEAVING) il aura la classe "fade_class out"
 
@@ -85,22 +98,16 @@ export const FadeWithStyle = ({ visible, children, duration = 350,animateEnter=f
       setState(VISIBLE); // Du coup il rétirera la classe Out et on aura notre Effet d'opacité
     }
   }, [duration, state]);
-  
+
   // Alors si notre Etat est dans l'etape HIDDEN alors on supprime le tout du DOM
   if (state === HIDDEN) {
     return null;
   }
   // On utilise plus les classe CSS pour faire notre animation mais juste du style
-  let style = {
-    transitionDuration: `${duration}ms`,
-    transitionProperty: "opacity transform"
-
-  }
-  if(state!==VISIBLE) {
-    style.opacity = 0;
-    style.transform = "translateY(-5px)";
+  let style = styleStart;
+  if (state !== VISIBLE) {
+    style = {...style,...styleEnd}
   }
 
-  
   return <div style={style}>{childRef.current}</div>;
 };
