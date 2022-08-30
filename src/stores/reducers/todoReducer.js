@@ -10,11 +10,28 @@ const initialValue = [
   {
     id: 2,
     title: "Préparer le tutoriel",
-    completed: true,
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Enregistrer le tutoriel",
+    completed: false,
+  },
+  {
+    id: 4,
+    title: "Préparer le tutoriel",
+    completed: false,
+  },
+
+  {
+    id: 5,
+    title: "le tutoriel Préparer",
+    completed: false,
   },
 ];
+
 // L'identifiant de départ que l'on va incrementer à la suite
-let id = 2;
+let id = 5;
 // Les types d'actions à utiliser dans notre todoReducer
 // NB: C'est sont les types d'action d'un reducer qui determine quel store est utiliser , voilà pourquoi on ne peut pas avoir des store qui utilise les memes type d'action, un type d'action n'appartient qu'à un seul store specifique
 /**

@@ -11,7 +11,7 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         onChange={() => onToggle(todo)}
       />
       <label htmlFor={todo.id}>{todo.title}</label>
-      <button className="ms-3 cursor-pointer" onClick={() => onDelete(todo)}>
+      <button className="btn btn-danger m-1 py-0 ms-3 cursor-pointer" onClick={() => onDelete(todo)}>
         X
       </button>
     </li>

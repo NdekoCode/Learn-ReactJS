@@ -1,4 +1,4 @@
-import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION } from "../reducers/todoReducer";
+import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION, ADD_TODO_ACTION } from "../reducers/todoReducer";
 
 /**
  * @description Permet d'envoyer une action de modification à notre todoReducer
@@ -30,3 +30,9 @@ export const deleteTodoAction = (todo) => {
     },
   };
 };
+export const addTodoAction = (value)=>{
+  return {
+    type: ADD_TODO_ACTION,
+    payload:{title:value}
+  }
+}

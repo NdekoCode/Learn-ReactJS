@@ -18,3 +18,49 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* Dans react on va activer ou desactiver cette clase "out" si l'on veut une animation*/
+.fade__class {
+  /* transition: opacity 0.35s!important; */
+  animation: fadeOut linear 0.35s forwards;
+}
+.fade__class.out {
+  /* opacity:0!important; */
+
+  animation: fadeIn linear 0.35s forwards;
+}
+.fade_top {
+  transition: transform 0.35s;
+}
+
+.fade_top.out {
+  transform: translateY(-5px);
+}
+
+.fade_x {
+  transition: transform 0.35s;
+}
+
+.fade_x.out {
+  transform: translateX(-25px);
+}
+@keyframes fadeOut {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+
+  }to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+
+  }to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}

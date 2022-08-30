@@ -1,0 +1,13 @@
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    margin: 10px;
+    background-color: rgb(26, 26, 61);
+    color: #fff;
+
+}
