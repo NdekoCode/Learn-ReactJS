@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useState } from "react"
+import { Fade } from "./Fade";
 
 export function FormUser () {
     const [usersData,setUsersData] = useState([]);
@@ -10,7 +11,11 @@ export function FormUser () {
         email:"",
         password:""
     });
-    
+    const addUser = (newUser)=>{
+
+        
+        setUsersData(user=>([...user,newUser]));
+    }
     const handleChange = (evt)=>{
         const name = evt.target.name;
         const value = evt.target.value;
@@ -20,20 +25,19 @@ export function FormUser () {
     }
     const submit =useCallback((evt)=>{
         evt.preventDefault();
-        
-        setUsersData(user=>([...user,formUser]));
+        addUser(formUser);
 
-        console.log(usersData);
             setFormUser({
                 firstname:"",
                 lastname:"",
                 email:"",
                 password:""
             })
-    },[usersData,formUser])
+    },[formUser])
     return <div className="card">
     <form onSubmit={submit} className="card-body">
-    {JSON.stringify(usersData)}
+    <Fade visible={true}>
+    {JSON.stringify(usersData)}</Fade>
     <div className="form-group">
             <label htmlFor="firstname">Prenom</label>
             <input value={formUser.firstname} onChange={handleChange} type="text" id="firstname" name="firstname"  placeholder="Entrer votre prenom" className="form-control" />
@@ -47,7 +51,7 @@ export function FormUser () {
         <div className="form-group">
             <label htmlFor="email">Email</label>
             <input value={formUser.email}  onChange={handleChange} type="email" id="email" name="email"  placeholder="Entrer votre email" className="form-control" />
-        </div>
+        </div> 
         <div className="form-group">
             <label htmlFor="password">Password</label>
             <input value={formUser.password}  autoComplete="true" onChange={handleChange} type="password" id="password" name="password"  placeholder="Entrer votre mot de passe" className="form-control" />

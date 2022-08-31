@@ -9,7 +9,7 @@ import { AddTodoForm } from "./AddTodoForm";
 import { TodoFilterStore } from "./TodoFilter";
 import Decorator from "./Decorator";
 import TodoItem from "./TodoItem";
-const TodoList = ({ todos, onToggle, onDelete }) => {
+export const TodoList = ({ todos, onToggle, onDelete }) => {
   return (
     <div>
       <h1>My Todos</h1>
