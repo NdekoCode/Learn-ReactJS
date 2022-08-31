@@ -1,4 +1,5 @@
 import { Provider } from "react-redux";
+import AddPostStore from "../components/AddPost";
 import BlogItemStore from "../components/BlogItem";
 import store from "../newStore";
 
@@ -7,6 +8,7 @@ function Blog() {
   return <Provider store={store}>
     <div className="container">
     <h1>Mon blog</h1>
+    <AddPostStore/>
         <BlogItemStore/>
     </div>
   </Provider>;
