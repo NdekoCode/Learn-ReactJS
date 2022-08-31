@@ -27,7 +27,8 @@ export const DELETE_POST= "DELETE_POST";
 export const postReducer = (state= initState, action)=>{
     switch(action.type){
         case DELETE_POST:
-        return state.filter(post=>post.id,action.payload.id);
+        console.log(action.payload.id)
+        return state.filter(post=>post.id!==action.payload.id);
         default:
         return state
     }
