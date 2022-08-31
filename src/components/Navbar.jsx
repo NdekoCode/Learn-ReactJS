@@ -5,6 +5,7 @@ export const Navbar = () => {
     <ul>
         <li><NavLink to="/">Acceuil</NavLink></li>
         <li><NavLink to="/about">A props</NavLink></li>
+        <li><NavLink to="/login">Se connecter</NavLink></li>
     </ul>
     </nav>;
   };
