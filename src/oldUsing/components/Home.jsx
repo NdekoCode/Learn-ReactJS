@@ -1,4 +1,5 @@
 import React from "react";
+import { Fade } from "../../components/Fade";
 // import { AutoCompter } from "./Compter";
 
 import { useToggleCompterVisible } from "../hooks/Hooks";
@@ -8,6 +9,7 @@ import { UnControlInput } from "./UnControlInput";
 export function Home() {
   const [compterVisible, toggleCompter] = useToggleCompterVisible();
   return (
+    <Fade>
     <div className="container mt-5">
       <div className="mt-5 mb-3">
         <UnControlInput />
@@ -22,6 +24,6 @@ export function Home() {
         <br />
         {compterVisible && <CompterReducer />}
       </div>
-    </div>
+    </div></Fade>
   );
 }

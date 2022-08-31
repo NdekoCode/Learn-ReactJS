@@ -37,7 +37,8 @@ export function FormUser () {
     return <div className="card">
     <form onSubmit={submit} className="card-body">
     <Fade visible={true}>
-    {JSON.stringify(usersData)}</Fade>
+        {JSON.stringify(usersData)}
+    </Fade>
     <div className="form-group">
             <label htmlFor="firstname">Prenom</label>
             <input value={formUser.firstname} onChange={handleChange} type="text" id="firstname" name="firstname"  placeholder="Entrer votre prenom" className="form-control" />
