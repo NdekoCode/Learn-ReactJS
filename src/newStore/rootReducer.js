@@ -24,11 +24,14 @@ const initState = [{
 ];
 let id = 5;
 export const DELETE_POST= "DELETE_POST";
+export const ADD_POST= "ADD_POST";
 export const postReducer = (state= initState, action)=>{
     switch(action.type){
         case DELETE_POST:
-        console.log(action.payload.id)
         return state.filter(post=>post.id!==action.payload.id);
+
+        case ADD_POST:
+        return [...state,{...action.payload,id:++id}];
         default:
         return state
     }
