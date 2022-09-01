@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "./Tabs";
+import { Tab, Tabs } from "../components/Tabs";
 
 const TabContent = () => {
   return (
