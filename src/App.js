@@ -7,7 +7,7 @@ import { Navbar } from "./components/Navbar";
 import BlogStore from "./pages/Blog";
 import store from "./newStore";
 import { Provider } from "react-redux";
-import PostStore from "./components/Post";
+// import PostStore from "./components/Post";
 import Post from "./components/Post";
 
 function App() {
