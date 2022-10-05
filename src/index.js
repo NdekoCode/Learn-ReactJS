@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import { MakeAnimation } from "./components/MakeAnimation";
-import "./assets/css/app.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
