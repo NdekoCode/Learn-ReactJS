@@ -1,1 +1,1 @@
-export const postSelector = ({posts})=>posts;
+export const postSelector = ({posts})=>({posts});

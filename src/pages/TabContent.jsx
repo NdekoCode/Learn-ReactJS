@@ -1,7 +1,10 @@
+import { Fade } from "../components/Fade";
 import { Tab, Tabs } from "../components/Tabs";
 
 const TabContent = () => {
   return (
+    <Fade visible={true}>
+    <div className="container">
     <Tabs>
       {[...new Array(2)].map((v, i) => (
         <Tab title={`Onglet numero ${i}`} key={i}>
@@ -18,6 +21,8 @@ const TabContent = () => {
         iste similique error.
       </Tab>
     </Tabs>
+    </div>
+    </Fade>
   );
 };
 export default TabContent;
