@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Cars from "./Cars";
 import styled from "styled-components";
+import ClassComp from "./ClassComp";
 const Div = styled.div`
   padding: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.034);
@@ -41,7 +42,7 @@ const Form = () => {
       <div className="d-flex justify-content-center align-content-center">
         <Cars width={400} fill={state.color} />
       </div>
-
+      {state.username.length > 1 && <ClassComp data={state.username} />}
       <form className="mt-5 card border-0">
         <div>
           <Title htmlFor="username">
@@ -66,9 +67,7 @@ const Form = () => {
             id="color"
             className="form-control"
           >
-            <option value="" selected>
-              Choisisez votre Couleur
-            </option>
+            <option defaultValue={state.color}>Choisisez votre Couleur</option>
             {state.colors.map((option, index) => (
               <option key={index} value={option}>
                 {option.toLocaleLowerCase()}
