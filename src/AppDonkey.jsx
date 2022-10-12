@@ -1,9 +1,9 @@
-import Form from "./donkeyGeek/Form";
+import PureComp from "./donkeyGeek/PureComp";
 
 const AppDonkey = () => {
   return (
     <div className="container">
-      <Form />
+      <PureComp />
     </div>
   );
 };
