@@ -1,6 +1,29 @@
 import React, { useState, useCallback } from "react";
 import Cars from "./Cars";
-import styles from "../assets/css/test.module.css";
+import styled from "styled-components";
+import ClassComp from "./ClassComp";
+const Div = styled.div`
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.034);
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  input,
+  select {
+    padding: 5px 5px;
+    outline: none;
+  }
+  textare {
+    padding: 5px;
+  }
+`;
+const Title = styled.label`
+  color: green;
+  padding: 15px;
+  span {
+    color: red;
+  }
+`;
 const Form = () => {
   const [state, setState] = useState({
     username: "",
@@ -13,17 +36,19 @@ const Form = () => {
   const handleChange = useCallback(({ target }) => {
     setState((data) => ({ ...data, color: target.value }));
   }, []);
+
   return (
-    <div>
+    <Div>
       <div className="d-flex justify-content-center align-content-center">
         <Cars width={400} fill={state.color} />
       </div>
-
+      {state.username.length > 1 && <ClassComp data={state.username} />}
       <form className="mt-5 card border-0">
         <div>
-          <label htmlFor="username" className={styles.green}>
-            Nom d'utilisateur
-          </label>
+          <Title htmlFor="username">
+            Nom <span>d'utilisateur</span>
+          </Title>
+
           <input
             value={state.username}
             type="text"
@@ -42,9 +67,7 @@ const Form = () => {
             id="color"
             className="form-control"
           >
-            <option value="" selected>
-              Choisisez votre Couleur
-            </option>
+            <option defaultValue={state.color}>Choisisez votre Couleur</option>
             {state.colors.map((option, index) => (
               <option key={index} value={option}>
                 {option.toLocaleLowerCase()}
@@ -67,7 +90,7 @@ const Form = () => {
         </div>
         {state.color}
       </form>
-    </div>
+    </Div>
   );
 };
 
