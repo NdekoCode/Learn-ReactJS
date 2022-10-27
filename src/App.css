@@ -73,6 +73,12 @@ body {
   font-size: 17px;
   border-radius: 4px;
 }
+.btn.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 17px;
+  border-radius: 4px;
+}
 img {
   display: block;
   width: 100%;
