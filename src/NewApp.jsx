@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Vegeta from "./donkeyGeek/Vegeta";
 import Goku from "./donkeyGeek/Goku";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const NewApp = () => {
   const [life, setLife] = useState({
@@ -24,8 +25,10 @@ const NewApp = () => {
     <div className="text-center">
       <h1>Goku vs Vegeta</h1>
       <div className="flex">
-        <Vegeta name="vegeta" life={life.vegeta} hitLife={handleLife} />
-        <Goku name="Goku" life={life.goku} hitLife={handleLife} />
+        <ErrorBoundary fallback="Verifier vos informations">
+          <Vegeta name="vegeta" life={life.vegeta} hitLife={handleLife} />
+          <Goku name="Goku" life={life.goku} hitLife={handleLife} />
+        </ErrorBoundary>
       </div>
     </div>
   );
