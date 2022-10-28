@@ -14,9 +14,9 @@ export class ErrorBoundary extends React.Component {
       error: true,
     };
   }
-  componentDidCatch(error, errorInfos) {
-    console.log(errorInfos);
-  }
+  // componentDidCatch(error, errorInfos) {
+  //   console.log(errorInfos, error);
+  // }
   render() {
     if (this.state.error) {
       return <div className="alert alert-danger">{this.props.fallback}</div>;

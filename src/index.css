@@ -1,24 +1,13 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+nav a.active {
+  color: #000 !important;
+}
 /* Dans react on va activer ou desactiver cette clase "out" si l'on veut une animation*/
 .fade__class {
   /* transition: opacity 0.35s!important; */
@@ -48,8 +37,8 @@ code {
   from {
     opacity: 0;
     transform: translateY(-5px);
-
-  }to {
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
@@ -58,8 +47,8 @@ code {
   from {
     opacity: 1;
     transform: translateY(0);
-
-  }to {
+  }
+  to {
     opacity: 0;
     transform: translateY(-5px);
   }

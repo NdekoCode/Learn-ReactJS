@@ -7,6 +7,7 @@ const countHits = (WrappedComponent, power) => (props) => {
   };
   useEffect(() => {
     props.hitLife(props.name, hits, power);
+    throw new Error("Entrer quelque chose de valide");
   }, [hits, props.name]);
   return (
     <WrappedComponent
