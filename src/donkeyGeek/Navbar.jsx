@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full border-b border-gray-200 dark:border-gray-600">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <a href="https://flowbite.com/" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             React
           </span>
-        </a>
+        </Link>
         <div className="flex md:order-2">
           <button
             type="button"
@@ -45,28 +46,29 @@ const Navbar = () => {
         >
           <ul class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
             <li>
-              <a
+              <Link
                 class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
-                href="#"
+                to="/"
               >
-                Home
-              </a>
+                Docs
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
-                href="#"
+                to="/tutoriel"
               >
-                Products
-              </a>
+                Tutoriel
+              </Link>
             </li>
+
             <li>
-              <a
+              <Link
                 class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
-                href="#"
+                to="/community"
               >
-                About
-              </a>
+                Community
+              </Link>
             </li>
           </ul>
         </div>
