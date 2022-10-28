@@ -4,6 +4,7 @@ import Tutoriels from "./components/Tutoriels";
 import Community from "./components/Community";
 import Navbar from "./donkeyGeek/Navbar";
 import { Routes, Route } from "react-router-dom";
+import NotFoundPage from "./donkeyGeek/NotFoundPage";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
           <Route path="/" element={<Docs />} />
           <Route path="/tutoriel" element={<Tutoriels />} />
           <Route path="/community" element={<Community />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </div>

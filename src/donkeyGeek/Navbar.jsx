@@ -1,15 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full border-b border-gray-200 dark:border-gray-600">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <Link to="/" className="flex items-center">
+        <NavLink to="/" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             React
           </span>
-        </Link>
+        </NavLink>
         <div className="flex md:order-2">
           <button
             type="button"
@@ -44,31 +44,32 @@ const Navbar = () => {
           className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
           id="navbar-sticky"
         >
-          <ul class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
+          <ul className="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
             <li>
-              <Link
-                class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
+              <NavLink
+                end
+                className="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
                 to="/"
               >
                 Docs
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
+              <NavLink
+                className="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
                 to="/tutoriel"
               >
                 Tutoriel
-              </Link>
+              </NavLink>
             </li>
 
             <li>
-              <Link
-                class="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
+              <NavLink
+                className="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
                 to="/community"
               >
                 Community
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

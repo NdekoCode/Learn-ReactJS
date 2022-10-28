@@ -5,7 +5,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+nav a.active {
+  color: #000 !important;
+}
 /* Dans react on va activer ou desactiver cette clase "out" si l'on veut une animation*/
 .fade__class {
   /* transition: opacity 0.35s!important; */
