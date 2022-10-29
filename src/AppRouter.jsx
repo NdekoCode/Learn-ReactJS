@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Docs from "./components/Docs";
 import Tutoriels from "./components/Tutoriels";
 import Community from "./components/Community";
 import Navbar from "./donkeyGeek/Navbar";
 import { Routes, Route } from "react-router-dom";
 import NotFoundPage from "./donkeyGeek/NotFoundPage";
+import Profile from "./donkeyGeek/Profile";
 
 const AppRouter = () => {
+  const [underConst, setUnderConst] = useState({
+    Docs: false,
+    Tutorials: true,
+    Community: true,
+  });
   return (
     <div className="text-center">
       <Navbar />
@@ -15,8 +21,13 @@ const AppRouter = () => {
       <div className="flex flex-col">
         <Routes>
           <Route path="/" element={<Docs />} />
+          {/* <Route path="/tutoriel" element={<Tutoriels />} /> */}
           <Route path="/tutoriel" element={<Tutoriels />} />
-          <Route path="/community" element={<Community />} />
+          <Route
+            path="/community"
+            element={<Community render={underConst.Community} />}
+          />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
