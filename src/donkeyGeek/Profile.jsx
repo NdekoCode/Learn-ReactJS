@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MyContext from "./MyContext";
 
 const Profile = () => {
   const params = useParams();
-  useEffect(() => {
-    console.log(params);
-  });
   return (
     <MyContext.Consumer>
       {(data) => (
