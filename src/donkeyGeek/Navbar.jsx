@@ -57,6 +57,14 @@ const Navbar = () => {
             <li>
               <NavLink
                 className="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
+                to="/todos"
+              >
+                Todos
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="inline-block no-underline hover:text-black font-medium  py-2 px-4 lg:-ml-2"
                 to="/tutoriel"
               >
                 Tutoriel
