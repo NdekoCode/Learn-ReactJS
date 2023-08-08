@@ -17,6 +17,11 @@ const Todos = () => {
       text: "Acheter du fromage",
       completed: false,
     },
+    {
+      id: 1,
+      text: "Acheter du chocolat",
+      completed: true,
+    },
   ]);
   return (
     <div>
